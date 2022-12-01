@@ -1,0 +1,100 @@
+#line 1 "C:/Users/User/Downloads/Documents/CSE331LAB/Project/MICROCONTROLLER PROJECT/EVM mikroc/EVM_IC_.c"
+
+sbit LCD_RS at RB4_bit;
+sbit LCD_EN at RB5_bit;
+sbit LCD_D4 at RB0_bit;
+sbit LCD_D5 at RB1_bit;
+sbit LCD_D6 at RB2_bit;
+sbit LCD_D7 at RB3_bit;
+
+sbit LCD_RS_Direction at TRISB4_bit;
+sbit LCD_EN_Direction at TRISB5_bit;
+sbit LCD_D4_Direction at TRISB0_bit;
+sbit LCD_D5_Direction at TRISB1_bit;
+sbit LCD_D6_Direction at TRISB2_bit;
+sbit LCD_D7_Direction at TRISB3_bit;
+
+
+char txt[7],txt1[7],txt2[7],txt3[7];
+
+void main()
+{
+
+int a=0,b=0;
+int c=0,d=0,e=0;
+trisd=1;
+portd=0;
+trisc=0;
+portc=0;
+
+while(1)
+{
+
+Lcd_Init();
+Lcd_Cmd(_LCD_CLEAR);
+Lcd_Cmd(_LCD_CURSOR_OFF);
+Lcd_Out(1,1,"press button ");
+Lcd_Out(2,1,"cast your vote");
+
+while(portd==0)
+{
+}
+if (portd==0b00100000)
+{
+e=1;
+}
+while (e==1)
+{
+Lcd_Cmd(_LCD_CLEAR);
+Lcd_Out(1,1,"1:Asif 2:Zakaria");
+Lcd_Out(2,1,"3:Aiaj 4:Tanbin");
+while(portd==0)
+{
+}
+
+
+if (portd==0b00000001)
+{
+a=a+1;
+e=0;
+}
+if (portd==0b00000010)
+{
+b=b+1;
+e=0;
+}
+if (portd==0b00000100)
+{
+c=c+1;
+e=0;
+}
+if (portd==0b00001000)
+{
+d=d+1;
+e=0;
+}
+if (portd==0b00010000)
+{
+
+Lcd_Cmd(_LCD_CLEAR);
+inttostr(a, txt);
+inttostr(b, txt1);
+inttostr(c, txt2);
+inttostr(d, txt3);
+delay_ms(500);
+
+Lcd_out(1,1,"1:");
+Lcd_out(1,4,txt);
+Lcd_out(2,1,"3:");
+Lcd_out(2,4,txt2);
+delay_ms(2000);
+Lcd_out(1,1,"2:");
+Lcd_out(1,4,txt1);
+Lcd_out(2,1,"4:");
+Lcd_out(2,4,txt3);
+delay_ms(2000);
+}
+
+}
+}
+}
